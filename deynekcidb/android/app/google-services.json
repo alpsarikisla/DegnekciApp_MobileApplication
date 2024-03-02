@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "964039163491",
+    "project_id": "deynekcidb",
+    "storage_bucket": "deynekcidb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964039163491:android:460d496d8c05b979a28256",
+        "android_client_info": {
+          "package_name": "com.example.deynekcidb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_lDQj0oAWu1RQOenqsgXHlb0KnKdxPQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
