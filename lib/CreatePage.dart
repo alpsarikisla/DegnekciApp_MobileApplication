@@ -24,10 +24,14 @@ class _CreatePageState extends State<CreatePage> {
   Widget build(BuildContext context) {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     return Scaffold(
-      drawer: NavBar(),
+      backgroundColor: Colors.black12,
+      //drawer: NavBar(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontSize: 15),
+        ),
       ),
       //resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(

@@ -1,5 +1,10 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:deynekcidb/CreatePage.dart';
+import 'package:deynekcidb/ListPage.dart';
+import 'package:deynekcidb/BeginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:deynekcidb/NavBar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DeynekciApp',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange.shade900),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Deynekçi App'),
@@ -28,55 +33,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController t1 = TextEditingController();
-
+  int _currentIndex = 1;
+  List<Widget> pages = [
+    const CreatePage(title: "Araç Ekle"),
+    const BeginPage(title: "Ana Sayfa"),
+    const ListPage(title: "Araçlar Listesi")
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      //drawer: NavBar(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Colors.orange.shade900,
+        title: Text(
+          widget.title,
+          style: GoogleFonts.poppins(
+              fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
+        ),
       ),
       //resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-          child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: MediaQuery.of(context).size.width,
-          minHeight: MediaQuery.of(context).size.height,
-        ),
-        child: IntrinsicHeight(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 10,
-                      //color: Colors.orange,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: Image.asset("images/degnekci.jpeg"),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-            ],
-          ),
-        ),
-      )),
+      body: pages[_currentIndex],
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.black12,
+        items: const <Widget>[
+          Icon(Icons.add_road, size: 30),
+          Icon(Icons.home, size: 30),
+          Icon(Icons.list_alt, size: 30),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
     );
   }
 }
