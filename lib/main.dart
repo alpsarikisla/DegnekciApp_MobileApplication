@@ -1,9 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:deynekcidb/CreatePage.dart';
-import 'package:deynekcidb/ListPage.dart';
-import 'package:deynekcidb/BeginPage.dart';
+import 'package:deynekcidb/firebase_options.dart';
+import 'package:deynekcidb/screens/CreatePage.dart';
+import 'package:deynekcidb/screens/ListPage.dart';
+import 'package:deynekcidb/screens/BeginPage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:deynekcidb/NavBar.dart';
+//import 'package:deynekcidb/widgets/NavBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -41,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     return Scaffold(
       //drawer: NavBar(),
       appBar: AppBar(
@@ -55,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: pages[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.black12,
+        index: _currentIndex,
         items: const <Widget>[
           Icon(Icons.add_road, size: 30),
           Icon(Icons.home, size: 30),

@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.15.4
   google_fonts: ^5.1.0
   curved_navigation_bar: ^1.0.3
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
