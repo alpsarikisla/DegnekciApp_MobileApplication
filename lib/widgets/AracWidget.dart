@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:deynekcidb/screens/detail_screen.dart';
 
 class AracWidget extends StatelessWidget {
   final id;

@@ -1,5 +1,6 @@
 //import 'package:deynekcidb/widgets/NavBar.dart';
 //import 'package:deynekcidb/firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/models/arac_model.dart';
 import 'package:deynekcidb/services/models/firebase_service.dart';
 //import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +16,7 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   TextEditingController t1 = TextEditingController();
   aracEkle() {
-    FirebaseService().postArac(Arac(plaka: t1.text));
+    FirebaseService().postArac(Arac(plaka: t1.text, tarih: Timestamp.now()));
   }
 
   @override
