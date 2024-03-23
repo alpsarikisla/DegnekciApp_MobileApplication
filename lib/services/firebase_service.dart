@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 
 class FirebaseService {
   final araclarCol = FirebaseFirestore.instance.collection("araclar");
-  final UcretCol = FirebaseFirestore.instance.collection("Ucretlendirme");
+  final ucretCol = FirebaseFirestore.instance.collection("Ucretlendirme");
 
   postArac(Arac arac) {
     var uuid = const Uuid();
@@ -23,5 +23,12 @@ class FirebaseService {
       araclist.add(Arac.fromJson(json));
     }
     return araclist;
+  }
+
+  Future<Arac> getAracPlaka(String id) async {
+    final arabaDoc =
+        await araclarCol.doc(id).get().then((value) => value.data());
+    final arabamodel = Arac.fromJson(arabaDoc!);
+    return arabamodel;
   }
 }

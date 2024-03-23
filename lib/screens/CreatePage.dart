@@ -1,10 +1,7 @@
-//import 'package:deynekcidb/widgets/NavBar.dart';
-//import 'package:deynekcidb/firebase_options.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/models/arac_model.dart';
-import 'package:deynekcidb/services/models/firebase_service.dart';
-//import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:deynekcidb/services/firebase_service.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({super.key, required this.title});

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-class BeginPage extends StatefulWidget {
+class BeginPage extends StatelessWidget {
   const BeginPage({super.key, required this.title});
   final String title;
-  @override
-  State<BeginPage> createState() => _CreateBeginPage();
-}
 
-class _CreateBeginPage extends State<BeginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
       backgroundColor: Colors.black12,
       //resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(

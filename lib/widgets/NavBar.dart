@@ -1,9 +1,10 @@
-import 'package:deynekcidb/screens/CreatePage.dart';
+import 'package:deynekcidb/screens/BeginPage.dart';
+import 'package:deynekcidb/screens/createpage.dart';
 import 'package:deynekcidb/screens/ListPage.dart';
-import 'package:deynekcidb/main.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget {
+  const NavBar({super.key});
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -38,7 +39,7 @@ class NavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const MyHomePage(title: "Değnekçi App")),
+                          const BeginPage(title: "Değnekçi App")),
                 );
               }),
           const Divider(),
