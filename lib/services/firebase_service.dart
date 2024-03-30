@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/models/arac_model.dart';
+import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseService {
   final araclarCol = FirebaseFirestore.instance.collection("araclar");
   final ucretCol = FirebaseFirestore.instance.collection("Ucretlendirme");
+  final db = FirebaseFirestore.instance;
 
   postArac(Arac arac) {
     var uuid = const Uuid();
@@ -30,5 +32,16 @@ class FirebaseService {
         await araclarCol.doc(id).get().then((value) => value.data());
     final arabamodel = Arac.fromJson(arabaDoc!);
     return arabamodel;
+  }
+
+  Future<Ucretlendirme> getUcretlendirme(String id) async {
+    final ref = db.collection("Ucretlendirme").doc(id).withConverter(
+          fromFirestore: Ucretlendirme.fromFirestore,
+          toFirestore: (Ucretlendirme ucretlendirme, _) =>
+              ucretlendirme.toFirestore(),
+        );
+    final docSnap = await ref.get();
+    final ucretlendirme = docSnap.data(); // Convert to City object
+    return ucretlendirme!;
   }
 }

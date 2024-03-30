@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deynekcidb/services/firebase_service.dart';
+import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -22,6 +24,9 @@ class _CreateActionScreen extends State<DetailScreen> {
     String saatmesaj = "${saat.toString()} saat oldu";
     String tarihStr =
         "${tarih.toDate().day.toString()}/${tarih.toDate().month.toString()}/${tarih.toDate().year.toString()} ${tarih.toDate().hour.toString()}:${tarih.toDate().minute.toString()}";
+    //Ucretlendirme u =FirebaseService().getUcretlendirme("1CyUClfZ0sGtwLJsh4on");
+    Ucretlendirme uu = Ucretlendirme.fromJson(FirebaseService()
+        .getUcretlendirme("1CyUClfZ0sGtwLJsh4on") as Map<String, dynamic>);
 
     return Scaffold(
       //drawer: NavBar(),
@@ -70,6 +75,8 @@ class _CreateActionScreen extends State<DetailScreen> {
                       Text(tarihStr),
                       const SizedBox(height: 20),
                       Text(saatmesaj),
+                      const SizedBox(height: 20),
+                      //Text(u.girisucret.toString()),
                     ],
                   ),
                 )),
