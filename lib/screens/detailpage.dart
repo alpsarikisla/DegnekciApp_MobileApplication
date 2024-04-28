@@ -11,27 +11,34 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _CreateActionScreen extends State<DetailScreen> {
+  Ucretlendirme? ucretlendirme;
   @override
+  void initState() {
+    super.initState();
+    FirebaseService()
+        .getUcretlendirme("1CyUClfZ0sGtwLJsh4on")
+        .then((ucretlendirme) {
+      this.ucretlendirme = ucretlendirme;
+      setState(() {});
+    });
+  }
+
   Widget build(BuildContext context) {
     final (id, plaka, tarih) = ModalRoute.of(context)!.settings.arguments as (
       String,
       String,
       Timestamp
     );
+
     DateTime suan = DateTime.now();
     DateTime giris = DateTime.parse(tarih.toDate().toString());
     int saat = suan.difference(giris).inHours;
     String saatmesaj = "${saat.toString()} saat oldu";
     String tarihStr =
         "${tarih.toDate().day.toString()}/${tarih.toDate().month.toString()}/${tarih.toDate().year.toString()} ${tarih.toDate().hour.toString()}:${tarih.toDate().minute.toString()}";
-    //Ucretlendirme u =FirebaseService().getUcretlendirme("1CyUClfZ0sGtwLJsh4on");
-    Ucretlendirme uu = Ucretlendirme.fromJson(FirebaseService()
-        .getUcretlendirme("1CyUClfZ0sGtwLJsh4on") as Map<String, dynamic>);
 
     return Scaffold(
-      //drawer: NavBar(),
       appBar: AppBar(
-        //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
           widget.title,
           style: const TextStyle(fontSize: 15),
@@ -76,7 +83,9 @@ class _CreateActionScreen extends State<DetailScreen> {
                       const SizedBox(height: 20),
                       Text(saatmesaj),
                       const SizedBox(height: 20),
-                      //Text(u.girisucret.toString()),
+                      Text((ucretlendirme == null
+                          ? ""
+                          : ucretlendirme!.girisucret.toString())),
                     ],
                   ),
                 )),

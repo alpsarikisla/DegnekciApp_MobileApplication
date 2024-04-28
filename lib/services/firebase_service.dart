@@ -35,13 +35,11 @@ class FirebaseService {
   }
 
   Future<Ucretlendirme> getUcretlendirme(String id) async {
-    final ref = db.collection("Ucretlendirme").doc(id).withConverter(
-          fromFirestore: Ucretlendirme.fromFirestore,
-          toFirestore: (Ucretlendirme ucretlendirme, _) =>
-              ucretlendirme.toFirestore(),
-        );
-    final docSnap = await ref.get();
-    final ucretlendirme = docSnap.data(); // Convert to City object
-    return ucretlendirme!;
+    final Map<String, dynamic>? ucretlendirmeDoc =
+        await ucretCol.doc(id).get().then((value) => value.data());
+
+    final ucretlendirmeModel =
+        Ucretlendirme.fromJson(ucretlendirmeDoc as Map<String, dynamic>);
+    return ucretlendirmeModel;
   }
 }
