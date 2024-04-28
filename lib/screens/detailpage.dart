@@ -12,6 +12,10 @@ class DetailScreen extends StatefulWidget {
 
 class _CreateActionScreen extends State<DetailScreen> {
   Ucretlendirme? ucretlendirme;
+  aracSil() {
+    //FirebaseService().postArac(Arac(plaka: t1.text, tarih: Timestamp.now()));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,8 +39,9 @@ class _CreateActionScreen extends State<DetailScreen> {
     int saat = suan.difference(giris).inHours;
     String saatmesaj = "${saat.toString()} saat oldu";
     String tarihStr =
-        "${tarih.toDate().day.toString()}/${tarih.toDate().month.toString()}/${tarih.toDate().year.toString()} ${tarih.toDate().hour.toString()}:${tarih.toDate().minute.toString()}";
-
+        "${tarih.toDate().day.toString()}/${tarih.toDate().month.toString()}/${tarih.toDate().year.toString()} ${tarih.toDate().add(const Duration(hours: 3)).hour.toString()}:${tarih.toDate().minute.toString()}";
+    num toplam =
+        ucretlendirme!.girisucret + (ucretlendirme!.saatlikucret * saat);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -76,16 +81,32 @@ class _CreateActionScreen extends State<DetailScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Text(plaka),
+                      const SizedBox(height: 10),
+                      Text(tarihStr, style: const TextStyle(fontSize: 20)),
+                      const SizedBox(height: 10),
+                      Text(saatmesaj, style: const TextStyle(fontSize: 20)),
+                      const SizedBox(height: 10),
+                      Text(plaka, style: const TextStyle(fontSize: 40)),
                       //Text(tarih.toDate().add(const Duration(hours: 3)).toString()),
-                      Text(tarihStr),
                       const SizedBox(height: 20),
-                      Text(saatmesaj),
-                      const SizedBox(height: 20),
-                      Text((ucretlendirme == null
-                          ? ""
-                          : ucretlendirme!.girisucret.toString())),
+                      Text(
+                        (ucretlendirme == null
+                            ? ""
+                            : toplam.toString() + ",00 ₺"),
+                        style: const TextStyle(
+                            fontSize: 70, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: double
+                            .infinity, // <-- match_parent// <-- match-parent)
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white),
+                            onPressed: aracSil,
+                            child: const Text("Araç Çıkış",
+                                style: TextStyle(fontSize: 20))),
+                      )
                     ],
                   ),
                 )),

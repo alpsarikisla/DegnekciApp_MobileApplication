@@ -88,8 +88,15 @@ class _CreatePageState extends State<CreatePage> {
                         width: double
                             .infinity, // <-- match_parent// <-- match-parent)
                         child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                            ),
                             onPressed: aracEkle,
-                            child: const Text("Araç Ekle")),
+                            child: const Text(
+                              "Araç Ekle",
+                              style: TextStyle(fontSize: 20),
+                            )),
                       )
                     ],
                   ),

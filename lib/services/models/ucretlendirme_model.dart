@@ -14,13 +14,11 @@ class Ucretlendirme {
 
   factory Ucretlendirme.fromJson(Map<String, dynamic> json) {
     num girisucret = json["giris"];
-    String id = json["id"];
     String otoparkid = json["otopark_id"];
     num saatlikucret = json["saatbasi"];
 
     return Ucretlendirme(
         girisucret: girisucret,
-        id: id,
         otoparkid: otoparkid,
         saatlikucret: saatlikucret);
   }
