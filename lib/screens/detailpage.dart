@@ -34,6 +34,9 @@ class _CreateActionScreen extends State<DetailScreen> {
       String,
       Timestamp
     );
+    if (ucretlendirme == null) {
+      return const CircularProgressIndicator();
+    }
 
     DateTime suan = DateTime.now();
     DateTime giris = DateTime.parse(tarih.toDate().toString());

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange.shade900),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
         "/": (context) => const MyHomePage(title: "Deynekçi App"),
