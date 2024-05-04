@@ -9,10 +9,10 @@ class FirebaseService {
   final db = FirebaseFirestore.instance;
 
   postArac(Arac arac) {
-    var uuid = const Uuid();
+    var uuid = const Uuid().v1();
     araclarCol
-        .doc()
-        .set({'id': uuid.v1(), 'plaka': arac.plaka, 'tarih': arac.tarih});
+        .doc(uuid)
+        .set({'id': uuid, 'plaka': arac.plaka, 'tarih': arac.tarih});
   }
 
   Future<List<Arac>> getAraclar() async {

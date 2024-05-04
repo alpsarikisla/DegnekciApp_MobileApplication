@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/models/arac_model.dart';
 import 'package:deynekcidb/services/firebase_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({super.key, required this.title});
@@ -13,7 +14,26 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   TextEditingController t1 = TextEditingController();
   aracEkle() {
-    FirebaseService().postArac(Arac(plaka: t1.text, tarih: Timestamp.now()));
+    try {
+      FirebaseService().postArac(Arac(plaka: t1.text, tarih: Timestamp.now()));
+      //_showToast(context);
+      Fluttertoast.showToast(
+        msg: '       Araç Eklendi       ',
+        timeInSecForIosWeb: 3,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.green,
+      );
+    } catch (e) {
+      //_showErrorToast(context);
+      Fluttertoast.showToast(
+        msg: 'Araç Eklenirken Hata Oluştu',
+        timeInSecForIosWeb: 3,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.red,
+      );
+    }
+    t1.text = "";
+    FocusScope.of(context).unfocus();
   }
 
   @override
@@ -105,6 +125,28 @@ class _CreatePageState extends State<CreatePage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      const SnackBar(
+        content: Text('Araç Eklendi'),
+        //action: SnackBarAction(
+        //label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void _showErrorToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      const SnackBar(
+        content: Text('Araç Eklenirken Hata Oluştu'),
+        //action: SnackBarAction(
+        //label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

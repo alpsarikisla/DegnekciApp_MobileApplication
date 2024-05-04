@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/firebase_service.dart';
 import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.title});
@@ -87,14 +88,13 @@ class _CreateActionScreen extends State<DetailScreen> {
                       Text(saatmesaj, style: const TextStyle(fontSize: 20)),
                       const SizedBox(height: 10),
                       Text(plaka, style: const TextStyle(fontSize: 40)),
-                      //Text(tarih.toDate().add(const Duration(hours: 3)).toString()),
                       const SizedBox(height: 20),
                       Text(
                         (ucretlendirme == null
                             ? ""
                             : toplam.toString() + ",00 ₺"),
                         style: const TextStyle(
-                            fontSize: 70, fontWeight: FontWeight.bold),
+                            fontSize: 50, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         width: double
@@ -105,6 +105,33 @@ class _CreateActionScreen extends State<DetailScreen> {
                                 foregroundColor: Colors.white),
                             onPressed: aracSil,
                             child: const Text("Araç Çıkış",
+                                style: TextStyle(fontSize: 20))),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey,
+                                foregroundColor: Colors.white),
+                            onPressed: () => FirebaseFirestore.instance
+                                .collection("araclar")
+                                .doc(id)
+                                .delete()
+                                .then(
+                                  (doc) => Fluttertoast.showToast(
+                                    msg: '       İptal Edildi       ',
+                                    timeInSecForIosWeb: 3,
+                                    gravity: ToastGravity.CENTER,
+                                    backgroundColor: Colors.green,
+                                  ),
+                                  onError: (e) => Fluttertoast.showToast(
+                                    msg: '        Hata Oluştu        ',
+                                    timeInSecForIosWeb: 3,
+                                    gravity: ToastGravity.CENTER,
+                                    backgroundColor: Colors.red,
+                                  ),
+                                ),
+                            child: const Text("İptal",
                                 style: TextStyle(fontSize: 20))),
                       )
                     ],
