@@ -1,6 +1,6 @@
-# deynekcidb
+# Deynekci App
 
-A new Flutter project.
+A new Flutter parking lot Application
 
 ## Getting Started
 
