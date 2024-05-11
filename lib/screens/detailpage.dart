@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:deynekcidb/screens/listpage.dart';
 import 'package:deynekcidb/services/firebase_service.dart';
 import 'package:deynekcidb/services/models/kasa_model.dart';
 import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
