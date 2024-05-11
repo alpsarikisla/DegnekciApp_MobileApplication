@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deynekcidb/services/models/arac_model.dart';
+import 'package:deynekcidb/services/models/kasa_model.dart';
 import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseService {
   final araclarCol = FirebaseFirestore.instance.collection("araclar");
   final ucretCol = FirebaseFirestore.instance.collection("Ucretlendirme");
+  final kasaCol = FirebaseFirestore.instance.collection("Kasa");
   final db = FirebaseFirestore.instance;
 
   postArac(Arac arac) {
@@ -41,5 +43,24 @@ class FirebaseService {
     final ucretlendirmeModel =
         Ucretlendirme.fromJson(ucretlendirmeDoc as Map<String, dynamic>);
     return ucretlendirmeModel;
+  }
+
+  Future<Ucretlendirme> getOtopark(String id) async {
+    final Map<String, dynamic>? ucretlendirmeDoc =
+        await ucretCol.doc(id).get().then((value) => value.data());
+
+    final ucretlendirmeModel =
+        Ucretlendirme.fromJson(ucretlendirmeDoc as Map<String, dynamic>);
+    return ucretlendirmeModel;
+  }
+
+  postKasa(Kasa kasa) {
+    var uuid = const Uuid().v1();
+    kasaCol.doc(uuid).set({
+      'id': uuid,
+      'alinan': kasa.alinan,
+      'otopark_id': kasa.otoparkID,
+      'tarih': kasa.tarih
+    });
   }
 }

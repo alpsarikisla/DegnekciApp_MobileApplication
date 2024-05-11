@@ -8,10 +8,6 @@ class Ucretlendirme {
       this.otoparkid = "-/-",
       this.saatlikucret = 0});
 
-  factory Ucretlendirme.emptyUcretlendirme() {
-    return Ucretlendirme();
-  }
-
   factory Ucretlendirme.fromJson(Map<String, dynamic> json) {
     num girisucret = json["giris"];
     String otoparkid = json["otopark_id"];

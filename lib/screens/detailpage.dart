@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deynekcidb/screens/listpage.dart';
 import 'package:deynekcidb/services/firebase_service.dart';
+import 'package:deynekcidb/services/models/kasa_model.dart';
 import 'package:deynekcidb/services/models/ucretlendirme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,8 +15,48 @@ class DetailScreen extends StatefulWidget {
 
 class _CreateActionScreen extends State<DetailScreen> {
   Ucretlendirme? ucretlendirme;
-  aracSil() {
-    //FirebaseService().postArac(Arac(plaka: t1.text, tarih: Timestamp.now()));
+  aracCikis(String id, num alinan) {
+    try {
+      FirebaseService().postKasa(Kasa(
+          alinan: alinan,
+          otoparkID: "IwswahHDzhWPYtEKTnU7",
+          tarih: Timestamp.now()));
+      Fluttertoast.showToast(
+        msg: '       Tahsilat Alındı        ',
+        timeInSecForIosWeb: 3,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.green,
+      );
+      FirebaseFirestore.instance.collection("araclar").doc(id).delete();
+      Navigator.of(context).pushNamed('/listele');
+    } catch (e) {
+      //_showErrorToast(context);
+      Fluttertoast.showToast(
+        msg: 'Tahsilat Alınırken Hata Oluştu',
+        timeInSecForIosWeb: 3,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  aracSil(String id) {
+    FirebaseFirestore.instance.collection("araclar").doc(id).delete().then(
+          (doc) => Fluttertoast.showToast(
+            msg: '       İptal Edildi       ',
+            timeInSecForIosWeb: 3,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.green,
+          ),
+          onError: (e) => Fluttertoast.showToast(
+            msg: '        Hata Oluştu        ',
+            timeInSecForIosWeb: 3,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.red,
+          ),
+        );
+    //Navigator.pop(context, true);
+    Navigator.pop(context);
   }
 
   @override
@@ -91,6 +133,8 @@ class _CreateActionScreen extends State<DetailScreen> {
                       Text(saatmesaj, style: const TextStyle(fontSize: 20)),
                       const SizedBox(height: 10),
                       Text(plaka, style: const TextStyle(fontSize: 40)),
+                      const SizedBox(height: 10),
+                      Text(id, style: const TextStyle(fontSize: 10)),
                       const SizedBox(height: 20),
                       Text(
                         (ucretlendirme == null
@@ -106,7 +150,7 @@ class _CreateActionScreen extends State<DetailScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red,
                                 foregroundColor: Colors.white),
-                            onPressed: aracSil,
+                            onPressed: () => aracCikis(id, toplam),
                             child: const Text("Araç Çıkış",
                                 style: TextStyle(fontSize: 20))),
                       ),
@@ -116,24 +160,7 @@ class _CreateActionScreen extends State<DetailScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.grey,
                                 foregroundColor: Colors.white),
-                            onPressed: () => FirebaseFirestore.instance
-                                .collection("araclar")
-                                .doc(id)
-                                .delete()
-                                .then(
-                                  (doc) => Fluttertoast.showToast(
-                                    msg: '       İptal Edildi       ',
-                                    timeInSecForIosWeb: 3,
-                                    gravity: ToastGravity.CENTER,
-                                    backgroundColor: Colors.green,
-                                  ),
-                                  onError: (e) => Fluttertoast.showToast(
-                                    msg: '        Hata Oluştu        ',
-                                    timeInSecForIosWeb: 3,
-                                    gravity: ToastGravity.CENTER,
-                                    backgroundColor: Colors.red,
-                                  ),
-                                ),
+                            onPressed: () => aracSil(id),
                             child: const Text("İptal",
                                 style: TextStyle(fontSize: 20))),
                       )
